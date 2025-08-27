@@ -1,4 +1,4 @@
-// T = traseiro, D = dianteiro
+// D = dianteiro, T = traseiro
 // D = direita, E = esquerda
 
 typedef struct {
@@ -10,19 +10,18 @@ typedef struct {
 
 class Barometro {
     public:
-        // medir deve retornar a pressão em bar (14.5 psi)
+        // por convenção, medir deve retornar a pressão em bar (14.5 psi)
         virtual double medir() = 0;
 };
 
-typedef struct {
-    Barometro* DD;
-    Barometro* DE;
-    Barometro* TD;
-    Barometro* TE;
-} GrupoBarometros;
-
-Medida medir();
-
-void enviar(Medida m);
-
-void medir_e_enviar();
+class GrupoBarometros {
+    public:
+        Barometro* DD;
+        Barometro* DE;
+        Barometro* TD;
+        Barometro* TE;
+        Medida medir();
+        void enviar(Medida m);
+        void medir_e_enviar();
+        GrupoBarometros(Barometro* DD, Barometro* DE, Barometro* TD, Barometro* TE);
+};

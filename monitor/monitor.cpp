@@ -1,19 +1,17 @@
 #include "monitor.h"
 #include <Arduino.h>
 
-extern GrupoBarometros barometros;
-
-Medida medir(){
+Medida GrupoBarometros::medir(){
     Medida resultado = {
-        .DD = barometros.DD->medir(),
-        .DE = barometros.DE->medir(),
-        .TD = barometros.TD->medir(),
-        .TE = barometros.TE->medir()
+        .DD = this->DD->medir(),
+        .DE = this->DE->medir(),
+        .TD = this->TD->medir(),
+        .TE = this->TE->medir()
     };
     return resultado;
 }
 
-void enviar(Medida m){
+void GrupoBarometros::enviar(Medida m){
     Serial.println("{");
 
     Serial.print("\t\"DD\": ");
@@ -34,6 +32,13 @@ void enviar(Medida m){
     Serial.println("}");
 }
 
-void medir_e_enviar(){
+void GrupoBarometros::medir_e_enviar(){
     enviar(medir());
+}
+
+GrupoBarometros::GrupoBarometros(Barometro* DD, Barometro* DE, Barometro* TD, Barometro* TE) {
+    this->DD = DD;
+    this->DE = DE;
+    this->TD = TD;
+    this->TE = TE;
 }
