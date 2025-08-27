@@ -10,13 +10,13 @@ BarTeste DD;
 BarTeste DE;
 BarTeste TD;
 BarTeste TE;
-GrupoBarometros barometros = {.DD = &DD, .DE = &DE, .TD = &TD, .TE = &TE};
+GrupoBarometros barometros(&DD, &DE, &TD, &TE);
 
 void setup(){
     Serial.begin(9600);
 }
 
 void loop(){
-    medir_e_enviar();
+    barometros.medir_e_enviar();
     delay(100);
 }
