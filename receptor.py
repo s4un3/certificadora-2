@@ -30,8 +30,21 @@ def getMedida(s: Serial) -> Medida | None:
         obj = json.loads(text)
 
         for key in obj:
-            m.__setattr__(key, obj[key])
-
+            match key:
+                case "DD":
+                    m.DD = float(obj[key])
+                    continue
+                case "DE":
+                    m.DE = float(obj[key])
+                    continue
+                case "TD":
+                    m.TD = float(obj[key])
+                    continue
+                case "TE":
+                    m.TE = float(obj[key])
+                    continue
+                case _:
+                    return None                 
         return m
 
     except (UnicodeDecodeError, json.decoder.JSONDecodeError):
