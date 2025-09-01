@@ -4,6 +4,7 @@ import json
 
 
 @dataclass
+# classe de dados que guarda as medidas
 class Medida:
     DD: float
     DE: float
@@ -15,6 +16,10 @@ class Medida:
 
 
 def getMedida(s: Serial) -> Medida | None:
+    # lê do serial, dá parse como json e extrai os valores, retornando uma Medida
+    # None é retornado caso:
+    # Json contém algo além de DD, DE, TD, TE
+    # Erro de decoding de unicode ou de decoding de json (para quando a medida começou a ser lida na posição errada)
     text = ""
 
     try:
@@ -24,7 +29,7 @@ def getMedida(s: Serial) -> Medida | None:
             text += line
 
             if line[0] == "}":
-                break
+                break  # final do json
 
         m = Medida()
         obj = json.loads(text)
@@ -44,7 +49,7 @@ def getMedida(s: Serial) -> Medida | None:
                     m.TE = float(obj[key])
                     continue
                 case _:
-                    return None                 
+                    return None
         return m
 
     except (UnicodeDecodeError, json.decoder.JSONDecodeError):
