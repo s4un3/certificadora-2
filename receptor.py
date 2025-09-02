@@ -9,19 +9,10 @@ import serial.tools.list_ports
 @dataclass
 # classe de dados que guarda as medidas
 class Medida:
-    DD: float
-    DE: float
-    TD: float
-    TE: float
-
-    def __init__(
-        self, DD: float = 0.0, DE: float = 0.0, TD: float = 0.0, TE: float = 0.0
-    ):
-        self.DD = DD
-        self.DE = DE
-        self.TD = TD
-        self.TE = TE
-        pass
+    DD: float = 0.0
+    DE: float = 0.0
+    TD: float = 0.0
+    TE: float = 0.0
 
 
 def conectar() -> Serial | None:
