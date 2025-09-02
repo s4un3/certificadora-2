@@ -13,7 +13,7 @@ typedef struct {
 // classe que corresponde a um barômetro com um método abstrato (virtual) de medir
 class Barometro {
     public:
-        // por convenção, medir deve retornar a pressão em bar (14.5 psi)
+        // por convenção, medir deve retornar a pressão em psi
         virtual double medir() = 0;
 };
 

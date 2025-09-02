@@ -1,6 +1,9 @@
 from serial import Serial
 from dataclasses import dataclass
 import json
+from serial.serialutil import SerialException
+from serial import Serial
+import serial.tools.list_ports
 
 
 @dataclass
@@ -11,8 +14,32 @@ class Medida:
     TD: float
     TE: float
 
-    def __init__(self):
+    def __init__(
+        self, DD: float = 0.0, DE: float = 0.0, TD: float = 0.0, TE: float = 0.0
+    ):
+        self.DD = DD
+        self.DE = DE
+        self.TD = TD
+        self.TE = TE
         pass
+
+
+def conectar() -> Serial | None:
+    # tenta conectar a uma porta
+    s: Serial | None = None
+
+    ports = [comport.device for comport in serial.tools.list_ports.comports()]
+    for port in ports:
+        try:
+            s = Serial(port, 9600, timeout=1)
+            break
+        except SerialException:
+            continue
+
+    return s
+
+
+TIMEOUT_SERIAL: bool = False
 
 
 def getMedida(s: Serial) -> Medida | None:
@@ -28,6 +55,8 @@ def getMedida(s: Serial) -> Medida | None:
             line: str = s.readline().decode()
             text += line
 
+            if not line:
+                return None
             if line[0] == "}":
                 break  # final do json
 

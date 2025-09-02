@@ -3,7 +3,7 @@
 // implementação de um braômetro com base na abstrata Barometro
 class BarTeste : public Barometro {
     double medir() override {
-        return 0.0;
+        return random(0, 3000);
     }
 };
 
