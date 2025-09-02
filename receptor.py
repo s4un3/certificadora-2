@@ -30,9 +30,6 @@ def conectar() -> Serial | None:
     return s
 
 
-TIMEOUT_SERIAL: bool = False
-
-
 def getMedida(s: Serial) -> Medida | None:
     # lê do serial, dá parse como json e extrai os valores, retornando uma Medida
     # None é retornado caso:
