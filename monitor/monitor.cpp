@@ -2,6 +2,8 @@
 #include <Arduino.h>
 
 Medida GrupoBarometros::medir(){
+    // criar uma medida, com cada campo correspondente a cada pneu
+    // lembrando que this é um ponteiro, por isso "this->"
     Medida resultado = {
         .DD = this->DD->medir(),
         .DE = this->DE->medir(),
@@ -12,6 +14,7 @@ Medida GrupoBarometros::medir(){
 }
 
 void GrupoBarometros::enviar(Medida m){
+    // enviar a medida por serial, formatado como json
     Serial.println("{");
 
     Serial.print("\t\"DD\": ");
@@ -37,6 +40,7 @@ void GrupoBarometros::medir_e_enviar(){
 }
 
 GrupoBarometros::GrupoBarometros(Barometro* DD, Barometro* DE, Barometro* TD, Barometro* TE) {
+    // construtor que coloca cada barômetro no seu lugar certo
     this->DD = DD;
     this->DE = DE;
     this->TD = TD;
