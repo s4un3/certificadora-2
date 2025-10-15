@@ -8,8 +8,8 @@ ALTURA = 450
 COR_FUNDO = (25, 25, 25)
 COR_TEXTO = (255, 255, 255)
 
-ESCALA_CARRO = 1
-ESCALA_FONTE = 5
+ESCALA_CARRO = 0.8
+ESCALA_FONTE = 3.5
 
 pygame.init()
 
@@ -41,6 +41,7 @@ while True:
 
     medida: Medida | None = None
 
+    """
     if s is None:
         texto = fonte.render("Nenhuma porta detectada", False, COR_TEXTO)
         rect_texto = texto.get_rect(center=(LARGURA // 2, ALTURA // 2))
@@ -77,6 +78,10 @@ while True:
         tela.blit(surface, (0, 0))
         pygame.display.flip()
         continue
+
+    """
+
+    medida = Medida(1250, 1250, 1250, 1250)
 
     tela.blit(img_carro, rect_carro)
 
